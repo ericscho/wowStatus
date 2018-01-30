@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "GetStatus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    WowStatus.Models.Realm rStatus = ViewBag.realmStatus;
+    WowStatus.Models.GuildInfo ginfo = ViewBag.ginfo;
+ }
+
+<script type="text/javascript" src="http://static.wowhead.com/widgets/power.js"></script>
+<script>var wowhead_tooltips = { "colorlinks": true, "iconizelinks": true, "renamelinks": true }</script>
+
+<h2>WoW Status</h2>
+
+Realm Status @rStatus.name <br />
+<br />
+Realm is @(rStatus.status ? "up" : "down" )<br />
+<br />
+Logon Queue : @(@rStatus.queue ? "yes" : "no" )<br />
+<br />
+Population : @rStatus.population<br />
+<br />
+Connected :
+<ul>
+    @foreach (string namerealm in rStatus.connected_realms)
+    {
+        <li>@namerealm</li>
+    }
+</ul>
+<br />
+<h2>Guild Sabre at Aggramar</h2>
+<br />
+Guild News<br />
+<br />
+<ul>
+    @foreach (var myNews in ginfo.news)
+    {
+        if (myNews.achievement != null)
+        {
+            <li>@myNews.getRealDate().ToString("dd/MM/yyyy HH:mm") @myNews.character @myNews.getTypeDescr() <a href="http://www.wowhead.com/achievement=@myNews.achievement.id">@myNews.getAchievement()</a> </li>
+        }
+        else
+        {
+            <li>@myNews.getRealDate().ToString("dd/MM/yyyy HH:mm") @myNews.character @myNews.getTypeDescr() <a href="http://www.wowhead.com/item=@myNews.itemId">=@myNews.itemId</a></li>
+        }
+    }
+</ul>
+
+<hr />
+<em>Qps data (allotted / used) : @ViewBag.qpsData </em> <br />
+<em>Request data (allotted / used) : @ViewBag.quotaData </em> <br />
