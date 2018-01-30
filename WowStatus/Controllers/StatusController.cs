@@ -55,7 +55,6 @@ namespace WowStatus.Models
                 // .GetJsonAsync<clsHunter>();
 
                 // fields = pets for battle pets
-                // eg. https://eu.api.battle.net/wow/character/Aggramar/Morpheus?fields=pets&locale=en_GB&apikey=b2w2vvytvz3vh34jes62t7qp5cp4ennw
 
                 content = await wowResponse.Content.ReadAsStringAsync();
 
